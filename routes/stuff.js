@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const multerImage = require("../middleware/multerImage");
-const StuffController = require("../controllers/stuff");
-router.get("/", StuffController.showAllHouses);
+const StuffController = require("../controllers/stuff"); 
+const auth = require("../middleware/auth");
+
+router.get("/",auth, StuffController.showAllHouses);
 router.post("/", multerImage, StuffController.addHouse)
 router.get("/:id", StuffController.getHouseById);
 // router.get('/pricemin/:pricemin/pricemax/:pricemax',StuffController.getHouseByPrice)
@@ -13,4 +15,6 @@ router.get("/filter/by", StuffController.getHouseByCategorie1);
 router.get("/ville/:ville", StuffController.getHouseByVille);
 router.put("/:id", StuffController.upDateHouse);
 router.delete("/:id", StuffController.deleteHouse);
+
+
 module.exports = router;
