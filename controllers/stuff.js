@@ -8,10 +8,10 @@ exports.test = (req, res, next) => {
     testModel = new TestModel({ title: "mohamed" + index });
     table.push(testModel);
   }
-  testModel.insertMany(table)
+  TestModel.insertMany(table)
   .then(()=>res.status(202).json({msg:"test is succeed"})) 
   .catch(err=> res.status(420).json(err));
-  // res.status(200).json(table)
+ 
 };
 exports.deleteTest =(req,res)=>{
   TestModel.collection.drop()
