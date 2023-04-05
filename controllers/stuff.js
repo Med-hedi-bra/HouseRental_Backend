@@ -1,5 +1,24 @@
 const House = require("../model/house");
+const TestModel = require("../model/test");
 
+exports.test = (req, res, next) => {
+  let testModel;
+  let table = new Array();
+  for (let index = 0; index < 100; index++) {
+    testModel = new TestModel({ title: "mohamed" + index });
+    table.push(testModel);
+  }
+  testModel.insertMany(table)
+  .then(()=>res.status(202).json({msg:"test is succeed"})) 
+  .catch(err=> res.status(420).json(err));
+  // res.status(200).json(table)
+};
+exports.deleteTest =(req,res)=>{
+  TestModel.collection.drop()
+  .then(()=>res.status(215).json({msg:"deleted succesfully"})) 
+  .catch(err=>res.status(300).json(err))
+  
+}
 exports.addHouse = (req, res, next) => {
   const houseObject = req.body;
   const newHouse = new House({
@@ -7,46 +26,45 @@ exports.addHouse = (req, res, next) => {
 
     imageUrl1:
       req.files != undefined
-        ? req.files.img1 
+        ? req.files.img1
           ? `${req.protocol}://${req.get("host")}/images/${
               req.files.img1[0].filename
             }`
           : null
         : null,
 
-        imageUrl2:
-        req.files != undefined
-          ? req.files.img2 
-            ? `${req.protocol}://${req.get("host")}/images/${
-                req.files.img2[0].filename
-              }`
-            : null
-          : null,
-          imageUrl3:
-          req.files != undefined
-            ? req.files.img3
-              ? `${req.protocol}://${req.get("host")}/images/${
-                  req.files.img3[0].filename
-                }`
-              : null
-            : null,
-            imageUrl4:
-            req.files != undefined
-              ? req.files.img4 
-                ? `${req.protocol}://${req.get("host")}/images/${
-                    req.files.img4[0].filename
-                  }`
-                : null
-              : null,
-              imageUrl5:
-              req.files != undefined
-                ? req.files.img5 
-                  ? `${req.protocol}://${req.get("host")}/images/${
-                      req.files.img5[0].filename
-                    }`
-                  : null
-                : null,
-    
+    imageUrl2:
+      req.files != undefined
+        ? req.files.img2
+          ? `${req.protocol}://${req.get("host")}/images/${
+              req.files.img2[0].filename
+            }`
+          : null
+        : null,
+    imageUrl3:
+      req.files != undefined
+        ? req.files.img3
+          ? `${req.protocol}://${req.get("host")}/images/${
+              req.files.img3[0].filename
+            }`
+          : null
+        : null,
+    imageUrl4:
+      req.files != undefined
+        ? req.files.img4
+          ? `${req.protocol}://${req.get("host")}/images/${
+              req.files.img4[0].filename
+            }`
+          : null
+        : null,
+    imageUrl5:
+      req.files != undefined
+        ? req.files.img5
+          ? `${req.protocol}://${req.get("host")}/images/${
+              req.files.img5[0].filename
+            }`
+          : null
+        : null,
   });
   // if i upload single file i acces to the file by  req.file  else req.files
   newHouse
@@ -55,8 +73,8 @@ exports.addHouse = (req, res, next) => {
       res.status(201).json({ message: "Object succesfully created " });
     })
     .catch((err) => {
-      res.status(401).json({ err: "mibuun" });
-      console.log('mostfa')
+      res.status(401).json({ err: "error" });
+      console.log("mostfa");
     });
 };
 
