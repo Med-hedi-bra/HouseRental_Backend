@@ -4,7 +4,9 @@ const multerImage = require("../middleware/multerImage");
 const StuffController = require("../controllers/stuff"); 
 const auth = require("../middleware/auth");
 
-router.get("/",auth, StuffController.showAllHouses);
+// router.get("/",auth, StuffController.showAllHouses);
+router.get("/", StuffController.showAllHouses);
+
 router.post("/", multerImage, StuffController.addHouse)
 router.get("/:id", StuffController.getHouseById);
 // router.get('/pricemin/:pricemin/pricemax/:pricemax',StuffController.getHouseByPrice)
